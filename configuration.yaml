@@ -1,0 +1,182 @@
+homeassistant:
+  name: Home
+  latitude: !secret latitude
+  longitude: !secret longitude
+  elevation: 70
+  unit_system: imperial
+  time_zone: America/New_York
+  customize: !include_dir_merge_named customize
+
+zone: !include_dir_list zones
+
+frontend:
+  themes:
+    darkred:
+      # Main colors that can be changed
+      dark-primary-color: "#c66900"
+      disabled-text-color: "#545454"
+      divider-color: "rgba(255, 255, 255, 0.12)"
+      light-primary-color: "#e06c6c"
+      paper-card-background-color: "#1d1d1d"
+      paper-grey-200: "#191919"
+      paper-item-icon-color: "#d3d3d3"
+      paper-listbox-background-color: "#202020"
+      primary-background-color: "#303030"
+      primary-color: "#d32f2f"
+      primary-text-color: "#cfcfcf"
+      secondary-background-color: "#131313"
+      sidebar-text_-_background: "#62717b" 
+      # Colors based on variables, see above
+      paper-card-header-color: "var(--paper-item-icon-color)" 
+      paper-item-icon-active-color: "var(--primary-color)"
+      paper-item-icon_-_color: "var(--primary-text-color)"
+      paper-listbox-color: "var(--primary-text-color)"
+      paper-grey-50: "var(--primary-text-color)"
+      paper-slider-active-color: "var(--primary-color)"
+      paper-slider-knob-color: "var(--primary-color)"
+      paper-slider-knob-start-color: "var(--primary-color)"
+      paper-slider-pin-color: "var(--primary-color)"
+      paper-slider-secondary-color: "var(--light-primary-color)"
+      paper-toggle-button-checked-ink-color: "var(--dark-primary-color)"
+      paper-toggle-button-checked-button-color: "var(--primary-color)"
+      paper-toggle-button-checked-bar-color: "var(--light-primary-color)"
+      paper-toggle-button-unchecked-bar-color: "var(--primary-text-color)"
+      secondary-text-color: "var(--primary-color)"
+      table-row-background-color: "var(--paper-card-background-color)"
+      table-row-alternative-background-color: "var(--sidebar-text_-_background)"
+    darkblue:
+      primary-color: "#396FB6"
+      light-primary-color: "#77a0d4"
+      dark-primary-color: "#3539ce"
+      text-primary-color: "#ffffff"
+      primary-background-color: "#37464f"
+      sidebar-text_-_background: "#3c4348"
+      paper-card-background-color: "#263137"
+      paper-card-header-color: "var(--text-primary-color)"
+      secondary-background-color: "var(--primary-background-color)"
+      primary-text-color: "var(--text-primary-color)"
+      secondary-text-color: "var(--primary-color)"
+      paper-listbox-background-color: "var(--sidebar-text_-_background)"
+      paper-toggle-button-checked-ink-color: "var(--dark-primary-color)"
+      paper-toggle-button-checked-button-color: "var(--dark-primary-color)"
+      paper-toggle-button-checked-bar-color: "var(--dark-primary-color)"
+      paper-slider-knob-color: "var(--primary-color)"
+      paper-slider-knob-start-color: "var(--primary-color)"
+      paper-slider-pin-color: "var(--primary-color)"
+      paper-slider-active-color: "var(--primary-color)"
+      paper-slider-secondary-color: "var(--light-primary-color)"
+      paper-slider-container-color: "var(--sidebar-text_-_background)"
+      paper-progress-secondary-color: "var(--sidebar-text_-_background)"
+      paper-item-selected_-_background-color: "var(--primary-color)"
+      paper-item-icon_-_color: "var(--text-primary-color)"
+      paper-item-icon-color: "var(--text-primary-color)"
+      paper-item-icon-active-color: "var(--primary-color)"
+      paper-grey-50: "var(--sidebar-text_-_background)"
+      paper-grey-200: "var(--primary-background-color)"
+      label-badge-background-color: "var(--sidebar-text_-_background)"
+      label-badge-text-color: "var(--text-primary-color)"
+      label-badge-red: "var(--primary-color)"
+      label-badge-blue: "var(--light-primary-color)"
+      label-badge-green: "var(--dark-primary-color)"
+      label-badge-yellow: "var(--text-primary-color)"
+      label-badge-grey: "var(--paper-grey-500)"
+      table-row-background-color: "var(--paper-card-background-color)"
+      table-row-alternative-background-color: "var(--sidebar-text_-_background)"
+
+config:
+
+http:
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  # base_url: example.duckdns.org:8123
+  api_password: !secret http_password
+  trusted_networks:
+  - 127.0.0.1
+  - 192.168.0.0/24
+
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  reporting: true
+  include_used_components: true
+
+discovery:
+
+conversation:
+
+history:
+
+logbook:
+
+sun:
+
+logger:
+
+tts:
+  - platform: google
+
+mqtt:
+  broker: 192.168.0.12
+  port: 1883
+  client_id: home-assistant-1
+  username: !secret mqttuser
+  password: !secret mqttpass
+
+nest:
+  client_id: !secret nest_clientid
+  client_secret: !secret nest_client_secret
+
+ifttt:
+  key: !secret ifttt_key
+
+zwave:
+  usb_path: /dev/ttyACM0
+  config_path: /srv/homeassistant/src/open-zwave-control-panel/config
+  network_key: "0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10"
+  polling_interval: 60000
+  autoheal: true
+  debug: true
+  device_config: !include zwave_device_config.yaml
+
+ring:
+  username: !secret ring_user
+  password: !secret ring_pass
+
+netatmo:
+  api_key: !secret netatmo_api_key
+  secret_key: !secret netatmo_secret_key
+  username: !secret netatmo_user
+  password: !secret netatmo_pass
+  discovery: true
+
+usps:
+  username: !secret usps_user
+  password: !secret usps_pass
+
+emulated_hue:
+  host_ip: 192.168.0.12
+  listen_port: 8300
+  upnp_bind_multicast: true
+  exposed_domains:
+    - light
+    - switch
+    - group
+
+alarm_control_panel:
+  - platform: manual
+    name: Smith House Alarm
+    code: 1234
+    pending_time: 60
+    trigger_time: 120
+    disarm_after_trigger: false
+
+automation: !include_dir_merge_list automations
+script: !include scripts.yaml
+binary_sensor: !include_dir_merge_list binary_sensors
+camera: !include_dir_merge_list cameras
+climate: !include_dir_merge_list climate
+device_tracker: !include device_tracker.yaml
+group: !include_dir_named groups
+light: !include_dir_merge_list lights
+media_player: !include_dir_merge_list media_players
+sensor: !include_dir_merge_list sensors
+switch: !include_dir_merge_list switches

@@ -1,0 +1,9 @@
+zwave.aeotec_zw090_zstick_gen5_us:
+  ignored: false
+  polling_intensity: 1
+binary_sensor.laundry_room_multisensor_sensor:
+  ignored: false
+  polling_intensity: 1
+zwave.family_room_motion_sensor:
+  ignored: false
+  polling_intensity: 1

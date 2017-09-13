@@ -1,0 +1,10 @@
+*
+!*.yaml
+!scenes
+!.gitignore
+secrets.yaml
+known_devices.yaml
+gma_work.yaml
+home.yaml
+school.yaml
+work.yaml
